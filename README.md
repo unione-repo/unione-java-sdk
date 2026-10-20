@@ -1,4 +1,4 @@
-# UniOne Java SDK 2.1.2
+# UniOne Java SDK 2.1.3
 
 Web API 1.90
 
@@ -12,7 +12,7 @@ Quickstart guide: [Send emails with Java](https://docs.unione.io/en/send-with-ja
 <dependency>
     <groupId>io.unione</groupId>
     <artifactId>unione-java-sdk</artifactId>
-    <version>2.1.2</version>
+    <version>2.1.3</version>
 </dependency>
 ```
 
