@@ -6,7 +6,7 @@
 
     <groupId>io.unione</groupId>
     <artifactId>unione-java-sdk</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <packaging>jar</packaging>
 
     <name>UniOne SDK</name>
@@ -20,8 +20,17 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>UniOne</name>
+            <url>https://unione.io</url>
+        </developer>
+    </developers>
+
     <scm>
         <url>https://github.com/unione-repo/unione-java-sdk</url>
+        <connection>scm:git:https://github.com/unione-repo/unione-java-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:unione-repo/unione-java-sdk.git</developerConnection>
     </scm>
 
     <properties>

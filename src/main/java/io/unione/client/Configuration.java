@@ -22,7 +22,7 @@ public class Configuration {
     private final String apiKey;
     private String baseUrl = DEFAULT_BASE_URL;
     private Duration timeout = Duration.ofSeconds(30);
-    private String userAgent = "unione-java-sdk/1.1.2";
+    private String userAgent = "unione-java-sdk/1.1.3";
     private String platform;
 
     /** @param apiKey user or project API key, sent in the X-API-KEY header */
