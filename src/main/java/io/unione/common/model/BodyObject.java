@@ -45,6 +45,37 @@ public class BodyObject {
         return this;
     }
 
+    /**
+     * An HTML body.
+     *
+     * @param html the HTML part
+     * @return the body
+     */
+    public static BodyObject html(String html) {
+        return new BodyObject().setHtml(html);
+    }
+
+    /**
+     * An HTML body with a plain-text part.
+     *
+     * @param html the HTML part
+     * @param plaintext the plain-text part
+     * @return the body
+     */
+    public static BodyObject html(String html, String plaintext) {
+        return new BodyObject().setHtml(html).setPlaintext(plaintext);
+    }
+
+    /**
+     * A plain-text body.
+     *
+     * @param plaintext the text
+     * @return the body
+     */
+    public static BodyObject text(String plaintext) {
+        return new BodyObject().setPlaintext(plaintext);
+    }
+
     /** Builds the object from decoded JSON. */
     public static BodyObject fromMap(Map<String, Object> data) {
         BodyObject result = new BodyObject();
