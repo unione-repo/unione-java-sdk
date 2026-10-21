@@ -13,7 +13,7 @@ import java.util.Map;
 /** Low level transport: every API method is a POST request with a JSON body that returns JSON. */
 public class ApiClient {
     /** The SDK and its version in the "platform" query parameter of every request. */
-    public static final String PLATFORM = "java-sdk.2.2.3";
+    public static final String PLATFORM = "java-sdk.2.2.4";
 
     private final Configuration config;
     private final HttpClient httpClient;
