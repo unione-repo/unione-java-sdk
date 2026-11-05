@@ -14,7 +14,7 @@ Official Java library for the [UniOne](https://unione.io) transactional email AP
 <dependency>
     <groupId>io.unione</groupId>
     <artifactId>unione-java-sdk</artifactId>
-    <version>1.2.4</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -150,7 +150,7 @@ client.email().send(new EmailSendRequest().setMessage(new MessageObject()
 
 ### Retry safely
 
-A repeat with the same `idempotence_key` within a minute is not sent twice: retry network errors, timeouts, 429 and 5xx with it.
+A repeat with the same `idempotence_key` within a minute is not sent twice: retry the retryable errors (network errors, timeouts, 429 and 5xx) with it; after that minute check your own record of the sent email before repeating.
 
 ```java
 client.email().send(new EmailSendRequest().setMessage(new MessageObject()
@@ -171,8 +171,9 @@ import io.unione.client.ApiException;
 try {
     client.email().send(request);
 } catch (ApiException e) {
-    // HTTP status (0: network error or timeout), API error code, message
-    System.err.println(e.getHttpStatus() + " " + e.getErrorCode() + " " + e.getMessage());
+    // the message: method, API error code, HTTP status and how to fix it; kind: what failed; retryable: a repeat may succeed
+    System.err.println(e.getMessage());
+    System.err.println(e.getKind() + (e.isRetryable() ? " retryable" : " not retryable"));
 }
 ```
 
@@ -333,7 +334,7 @@ UniOneClient other = UniOne.client("YOUR_API_KEY", Configuration.HOST_US1);
 
 ### Error handling
 
-Every method raises `ApiException` when the API returns an error; it carries the [API error code](https://docs.unione.io/en/web-api-ref#api-errors) and the HTTP status.
+Every method raises `ApiException`: an error of the API, a network error or a timeout, a broken response, and a mistake found before sending (an empty API key, a missing or empty `message.recipients` or `email` of a recipient: no request is sent). The message names the method and, for an API error, the [API error code](https://docs.unione.io/en/web-api-ref#api-errors), the HTTP status and how to fix it: `email/send: Unknown recipient (API error 204, HTTP 400). Fix: ...`. The error also tells what failed (its kind: api, network, timeout, invalid_response, invalid_request), whether a repeat may succeed (network, timeout, HTTP 429 and 5xx; not a request you cancelled) and keeps the API's own message text, in full and undecorated, in `getApiMessage()` (empty without an API response).
 
 `ApiException.getRawBody()` has the raw response text, also when it is not JSON (`getResponseBody()` is the decoded JSON object, null then).
 
